@@ -1,11 +1,36 @@
-body {
+/* body {
+  background-color: rgb(34, 34, 34);
+  color: rgb(231, 231, 231);
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+} */
+
+body {
+  background-color: #3a3a3c;
+  color: white;
 }
+
+.Verses {
+  font-family: 'Exo 2', sans-serif;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.Verses h1 {
+  line-height: 1.5;
+}
+
+.Answers {
+  color: black;
+}
+
+.ModalTitle {
+  color: black !important;
+}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
