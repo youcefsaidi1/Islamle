@@ -1,7 +1,5 @@
-import React,{useState, useEffect} from 'react'
+import React from 'react'
 import {Container} from 'reactstrap'
-import axios from 'axios'
-
 
 const Verses = (props) => {
 
