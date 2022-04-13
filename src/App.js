@@ -85,19 +85,25 @@ function App() {
 
   return (
     <div className='App'>
-      {versesLoaded?
+      
       <>      
       <Row className="NavBar mb-2">
         <div>Islamle</div>
       </Row>
       <Row className="mt-3 mb-3">
-        <Verses verses={verse}/>
+        {
+          versesLoaded
+          ?
+          <Verses verses={verse}/>
+          :
+          <img src={require("./loading.gif")} alt="loading gif"></img>
+        }
       </Row>
       <Row className="mt-3">
         <Answers data={surahData} surah_verses={verse}/>
       </Row>
       </>
-      :null}
+      
     </div>
   );
 }
