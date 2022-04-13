@@ -82,7 +82,7 @@ function App() {
   //   setVerse(verses);
 
  },[])
-
+ console.log(surahData)
   return (
     <div className='App'>
       
@@ -94,7 +94,7 @@ function App() {
         {
           versesLoaded
           ?
-          <Verses verses={verse}/>
+          <Verses verses={verse} data={surahData}/>
           :
           <Row className="mt-2 mb-5 d-flex justify-content-center">
             <Col sm={{size:4}}>
