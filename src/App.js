@@ -1,6 +1,6 @@
 
 import './App.css';
-import {Row} from 'reactstrap'
+import {Row, Col} from 'reactstrap'
 import React, {useState, useEffect} from 'react'
 import Verses from './components/Verses'
 import Answers from './components/Answers'
@@ -96,8 +96,12 @@ function App() {
           ?
           <Verses verses={verse}/>
           :
-          <img src={require("./loading.gif")} alt="loading gif"></img>
-        }
+          <Row className="mt-2 mb-5 d-flex justify-content-center">
+            <Col sm={{size:4}}>
+              <img src={require("./loading.gif")} alt="loading gif" width="25" hieght="25"></img>
+            </Col>    
+          </Row>  
+          }
       </Row>
       <Row className="mt-3">
         <Answers data={surahData} surah_verses={verse}/>
