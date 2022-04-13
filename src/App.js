@@ -82,7 +82,7 @@ function App() {
   //   setVerse(verses);
 
  },[])
- console.log(surahData)
+
   return (
     <div className='App'>
       
