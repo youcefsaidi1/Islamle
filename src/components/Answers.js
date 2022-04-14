@@ -14,17 +14,19 @@ const Answers = (props) => {
     const [modalTitle, setModalTitle] = useState("")
     const [modalBody, setModalBody] = useState("")
     const [modalFooter, setModalFooter] = useState("")
-    const [ans1, setAns1] = useState(("", 0))
-    const [ans2, setAns2] = useState(("", 0))
-    const [ans3, setAns3] = useState(("", 0))
+    const [ans1, setAns1] = useState(["", 0])
+    const [ans2, setAns2] = useState(["", 0])
+    const [ans3, setAns3] = useState(["", 0])
+
+    const [count, setCount] = useState(0)
 
     const handleChange1 = (val) => {
         setDisabled1(true)
-        setAns1((val.name, val.id))
+        setAns1([val.name, val.id])
         if (val.id === props.data.surah_number){
-            console.log("You got it right")
-            setModalTitle("Congratulations!")
-            setModalBody(`Number of Tries: 1`)
+            setCount(count+1)
+            setModalTitle("Fantasic!")
+            setModalBody(`You guessed ${count + 1} surahs correct!`)
             setModalFooter(`Surah: ${props.data.surah_name}`)
             setShow(true)
             
@@ -37,11 +39,11 @@ const Answers = (props) => {
     const handleChange2 = (val) => {
         
         setDisabled2(true)
-        setAns2((val.name, val.id))
+        setAns2([val.name, val.id])
         if (val.id === props.data.surah_number){
-            console.log("You got it right")
-            setModalTitle("Congratulations!")
-            setModalBody(`Number of Tries: 2`)
+            setCount(count+1)
+            setModalTitle("Nice Job!")
+            setModalBody(`You guessed ${count + 1} surahs correct!`)
             setModalFooter(`Surah: ${props.data.surah_name}`)
             setShow(true)
         }else{
@@ -52,30 +54,38 @@ const Answers = (props) => {
     const handleChange3 = (val) => {
         
         setDisabled3(true)
-        setAns3((val.name, val.id))
+        setAns3([val.name, val.id])
         if (val.id === props.data.surah_number){
-            console.log("You got it right")
-            setModalTitle("Congratulations!")
-            setModalBody(`Number of Tries: 3`)
+            setCount(count+1)
+            setModalTitle("You got it!")
+            setModalBody(`You guessed ${count + 1} surahs correct!`)
             setModalFooter(`Surah: ${props.data.surah_name}`)
             setShow(true)
-            console.log(show)
+            
         }else{
+            setCount(0)
             setModalTitle("You Didn't Get it :(")
             setModalBody(`You'll get it next time inshAllah!`)
             setModalFooter(`Surah: ${props.data.surah_name}`)
             setShow(true)
         }
     }
-    const refreshPage = () =>{
-        window.location.reload(false);
+
+    const newVerses = () =>{
+        setShow(false)
+        setAns1([false, 0])
+        setAns2([false, 0])
+        setAns3([false, 0])
+        props.new_verse()
+        setDisabled1(false)
     }
+
 
     const customStyles1 = {
     singleValue: (provided, state) => {
         const opacity = state.isDisabled ? 0.5 : 1;
         const transition = 'opacity 300ms';  
-        const color = props.data.surah_number === ans1 ? "green" : "red";
+        const color = props.data.surah_number === ans1[1] ? "green" : "red";
 
         return { ...provided, color, opacity, transition };
     }
@@ -85,7 +95,7 @@ const Answers = (props) => {
         singleValue: (provided, state) => {
             const opacity = state.isDisabled ? 0.5 : 1;
             const transition = 'opacity 300ms';  
-            const color = props.data.surah_number === ans2 ? "green" : "red";
+            const color = props.data.surah_number === ans2[1] ? "green" : "red";
     
             return { ...provided, color, opacity, transition };
         }
@@ -95,7 +105,7 @@ const Answers = (props) => {
         singleValue: (provided, state) => {
             const opacity = state.isDisabled ? 0.5 : 1;
             const transition = 'opacity 300ms';  
-            const color = props.data.surah_number === ans3 ? "green" : "red";
+            const color = props.data.surah_number === ans3[1] ? "green" : "red";
     
             return { ...provided, color, opacity, transition };
         }
@@ -123,7 +133,7 @@ const Answers = (props) => {
                     </ModalBody>
                     <ModalFooter className="d-flex justify-content-center">
                         {/* {modalFooter} */}
-                        <Button onClick={refreshPage}>Refresh</Button>
+                        <Button onClick={newVerses}>Refresh</Button>
                     </ModalFooter>
                 </Modal>
 
@@ -190,6 +200,5 @@ const Answers = (props) => {
             </>
     )
 }
-
 
 export default Answers

@@ -37,7 +37,6 @@ const Verses = (props) => {
         </Modal>
         :
         null}
-
         </>
 
     )
