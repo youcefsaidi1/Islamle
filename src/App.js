@@ -13,9 +13,9 @@ function App() {
   const [surahData, setSurahData] = useState()
   const [versesLoaded, setVersesLoaded] = useState(false)
 
-  const getTestSurah = () => {
-    return require('./testSurah.json')
-  }
+  // const getTestSurah = () => {
+  //   return require('./testSurah.json')
+  // }
   
   useEffect( ()=>{
      axios.get('https://8dqpicjnn1.execute-api.us-east-1.amazonaws.com/getRandomVerses').then(res => {

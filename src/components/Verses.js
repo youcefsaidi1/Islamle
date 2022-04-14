@@ -10,35 +10,37 @@ const Verses = (props) => {
     const translation = props.data.verses.map((verse)=> <li>{verse.translated_text}</li>)
     
     return (
-        <>        
-        <Container className="Verses" fluid>
-            <h1 className="verse">{props.verses}</h1>
-        </Container>
-        <Row>
-            <Col lg={{size:12}}>
-                <Button onClick={()=>{setShowTranslation(true)}}>Translation</Button>
-            </Col>
-        </Row>
+        <>
+            <Row>
+                <Col>
+                    <h1 className="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</h1>
+                </Col>
+            </Row>        
+            <Container className="Verses" fluid>
+                <h1 className="verse">{props.verses}</h1>
+            </Container>
+            <Row>
+                <Col lg={{size:12}}>
+                    <Button onClick={()=>{setShowTranslation(true)}}>Translation</Button>
+                </Col>
+            </Row>
+            
+            <Modal show={showTranslation}>
+                <ModalHeader>
+                    <ModalTitle>
+                        Translation
+                    </ModalTitle>
+                </ModalHeader>
+                <ModalBody>
+                <ol start={props.data.verses[0].number}>
+                    {translation}
+                </ol>
+                </ModalBody>
+                <Button onClick={()=>{setShowTranslation(false)}}>Close</Button>
+            </Modal>
         
-        {showTranslation
-        ?
-        <Modal show={showTranslation}>
-            <ModalHeader>
-                <ModalTitle>
-                    Translation
-                </ModalTitle>
-            </ModalHeader>
-            <ModalBody>
-            <ol start={props.data.verses[0].number}>
-                {translation}
-            </ol>
-            </ModalBody>
-            <Button onClick={()=>{setShowTranslation(false)}}>Close</Button>
-        </Modal>
-        :
-        null}
         </>
-
+    
     )
 }
 

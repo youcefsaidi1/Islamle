@@ -31,6 +31,10 @@ body {
   color: black !important;
 }
 
+.bismillah {
+  font-family: 'Lateef', cursive;
+  font-size: 1.5rem;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
