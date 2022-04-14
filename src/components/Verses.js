@@ -3,7 +3,6 @@ import {Container, Button, ModalBody, ModalHeader, Row, Col} from 'reactstrap'
 import {Modal, ModalTitle} from 'react-bootstrap';
 
 
-
 const Verses = (props) => {
     
     const [showTranslation, setShowTranslation] = useState(false)

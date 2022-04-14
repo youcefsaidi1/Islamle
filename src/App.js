@@ -10,87 +10,85 @@ function App() {
   const [verse, setVerse] = useState("")
   const [surahData, setSurahData] = useState()
   const [versesLoaded, setVersesLoaded] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  const ENV = 'PROD'
 
-  // const getTestSurah = () => {
-  //   return require('./testSurah.json')
-  // }
+  const getTestSurah = () => {
+    return require('./testSurah.json')
+  }
   
   useEffect( ()=>{
-     axios.get('https://8dqpicjnn1.execute-api.us-east-1.amazonaws.com/getRandomVerses').then(res => {
-        setSurahData(res.data)
-        let verses = res.data.verses.map(v => {
-            return v.text
-        })
-        const my_symbol = " ۝ "
-        verses[0] += my_symbol
-        verses[1] += my_symbol
-        
-        setVerse(verses)
-        setVersesLoaded(true)
-    }).catch(error => {
-        console.log(error)
-    })
 
-  //   const testSurah = getTestSurah()
-  //   setVersesLoaded(true)
-  //   setSurahData(testSurah);
-    
-  //   let verses = testSurah.verses.map(v => {
-  //     return v.text
-  // });
-  //   const my_symbol = " ۝ "
-  //   verses[0] += my_symbol;
-  //   verses[1] += my_symbol;
-  //   setVerse(verses);
+    checkIfMobile()
+    if (ENV === 'PROD'){
+        axios.get('https://8dqpicjnn1.execute-api.us-east-1.amazonaws.com/getRandomVerses').then(res => {
+          setSurahData(res.data)
+          let verses = res.data.verses.map(v => {
+              return v.text
+          })
+          const my_symbol = " ۝ "
+          verses[0] += my_symbol
+          verses[1] += my_symbol
+          
+          setVerse(verses)
+          setVersesLoaded(true)
+        }).catch(error => {
+          console.log(error)
+        })
+    }else {
+        const testSurah = getTestSurah()
+        setVersesLoaded(true)
+        setSurahData(testSurah);
+        
+        let verses = testSurah.verses.map(v => {
+          return v.text
+        });
+        
+        const my_symbol = " ۝ "
+        verses[0] += my_symbol;
+        verses[1] += my_symbol;
+        setVerse(verses);
+    }
 
  },[])
 
  const newVerse = ()=>{
-//   const testSurah = getTestSurah()
   setVersesLoaded(false)
-  
-//   setVersesLoaded(true)
-//   setSurahData(testSurah);
-  
-//   let verses = testSurah.verses.map(v => {
-//     return v.text
-// });
-//   const my_symbol = " ۝ "
-//   verses[0] += my_symbol;
-//   verses[1] += my_symbol;
-//   setVerse(verses);
-
-  axios.get('https://8dqpicjnn1.execute-api.us-east-1.amazonaws.com/getRandomVerses').then(res => {
-    setSurahData(res.data)
-    let verses = res.data.verses.map(v => {
-        return v.text
-    })
-    const my_symbol = " ۝ "
-    verses[0] += my_symbol
-    verses[1] += my_symbol
-    
-    setVerse(verses)
-    setVersesLoaded(true)
+  if (ENV === 'PROD'){
+    axios.get('https://8dqpicjnn1.execute-api.us-east-1.amazonaws.com/getRandomVerses').then(res => {
+      setSurahData(res.data)
+      let verses = res.data.verses.map(v => {
+          return v.text
+      })
+      const my_symbol = " ۝ "
+      verses[0] += my_symbol
+      verses[1] += my_symbol
+      
+      setVerse(verses)
+      setVersesLoaded(true)
     }).catch(error => {
-    console.log(error)
+      console.log(error)
     })
+  }{
+    const testSurah = getTestSurah()
+    setVersesLoaded(true)
+    setSurahData(testSurah);
+    
+    let verses = testSurah.verses.map(v => {
+      return v.text
+    });
+    const my_symbol = " ۝ "
+    verses[0] += my_symbol;
+    verses[1] += my_symbol;
+    setVerse(verses);    
+  }
  }
 
-
-     //ADD A CHECK TO ENSURE THAT THIS IS ONLY HAPPENING FOR MOBILE DEVICES
-    // const share = () => {
-    //     if (navigator.share) {
-    //         navigator.share({
-    //             title: `hello from islamle`,
-    //             url: "https://islamle.com"
-    //         }).then(()=> {
-    //             console.log("thanks for sharing")
-    //         })
-    //     } else {
-    //         alert("You can only share on mobile devices :(")
-
-    //     }
-    // }
+ const checkIfMobile = () => {
+   if (/Mobi/.test(navigator.userAgent)) {
+     setIsMobile(true)
+}
+ }
 
   return (
     <div className='App'>
@@ -113,7 +111,7 @@ function App() {
           }
       </Row>
       <Row className="mt-3">
-        <Answers data={surahData} surah_verses={verse} new_verse={newVerse}/>
+        <Answers data={surahData} surah_verses={verse} new_verse={newVerse} isMobile={isMobile}/>
       </Row>
       </>
       

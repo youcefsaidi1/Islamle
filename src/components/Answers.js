@@ -3,6 +3,7 @@ import {Col, Row, ModalHeader, ModalBody, ModalFooter, Button} from 'reactstrap'
 import Select from 'react-select'
 import { ModalTitle } from 'react-bootstrap'
 import {Modal} from 'react-bootstrap';
+import Share from "./Share";
 
 const Answers = (props) => {
 
@@ -17,6 +18,8 @@ const Answers = (props) => {
     const [ans1, setAns1] = useState(["", 0])
     const [ans2, setAns2] = useState(["", 0])
     const [ans3, setAns3] = useState(["", 0])
+
+    const [lost, setLost] = useState(false)
 
     const [count, setCount] = useState(0)
 
@@ -63,15 +66,17 @@ const Answers = (props) => {
             setShow(true)
             
         }else{
-            setCount(0)
-            setModalTitle("You Didn't Get it :(")
-            setModalBody(`You'll get it next time inshAllah!`)
+            setLost(true)
+            setModalTitle("You'll get it next time inshAllah!")
+            setModalBody(`You guessed ${count} surahs correct!`)
             setModalFooter(`Surah: ${props.data.surah_name}`)
+            setCount(0)
             setShow(true)
         }
     }
 
     const newVerses = () =>{
+        setLost(false)
         setShow(false)
         setAns1([false, 0])
         setAns2([false, 0])
@@ -131,9 +136,32 @@ const Answers = (props) => {
                         </Row>
                         
                     </ModalBody>
-                    <ModalFooter className="d-flex justify-content-center">
-                        {/* {modalFooter} */}
-                        <Button onClick={newVerses}>Refresh</Button>
+                    <ModalFooter>
+                        {lost 
+                        ?    
+                            <Row>
+                                <Col>
+                                    <Button onClick={newVerses}>Refresh</Button>
+                                </Col>
+                                    {props.isMobile 
+                                    ? 
+                                        <Col>
+                                            <Share
+                                                label="Share"
+                                                title={`Islamle - Quran Memorization Game`}
+                                                text={`I guessed ${count} surahs correct.\nHow many can you get?`}
+                                            />
+                                        </Col>
+                                    :
+                                        null}
+                            </Row>
+                        : 
+                            <Row>
+                                <Col>
+                                    <Button onClick={newVerses}>Next</Button>
+                                </Col>
+                            </Row>
+                         }
                     </ModalFooter>
                 </Modal>
 
