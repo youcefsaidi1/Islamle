@@ -6,8 +6,6 @@ import Verses from './components/Verses'
 import Answers from './components/Answers'
 import axios from 'axios'
 
-// import {Modal} from 'react-bootstrap';
-
 function App() {
   const [verse, setVerse] = useState("")
   const [surahData, setSurahData] = useState()
@@ -77,6 +75,22 @@ function App() {
     console.log(error)
     })
  }
+
+
+     //ADD A CHECK TO ENSURE THAT THIS IS ONLY HAPPENING FOR MOBILE DEVICES
+    // const share = () => {
+    //     if (navigator.share) {
+    //         navigator.share({
+    //             title: `hello from islamle`,
+    //             url: "https://islamle.com"
+    //         }).then(()=> {
+    //             console.log("thanks for sharing")
+    //         })
+    //     } else {
+    //         alert("You can only share on mobile devices :(")
+
+    //     }
+    // }
 
   return (
     <div className='App'>

@@ -9,20 +9,6 @@ const Verses = (props) => {
     const [showTranslation, setShowTranslation] = useState(false)
     
     const translation = props.data.verses.map((verse)=> <li>{verse.translated_text}</li>)
-
-    const share = () => {
-        if (navigator.share) {
-            navigator.share({
-                title: `hello from islamle`,
-                url: "https://islamle.com"
-            }).then(()=> {
-                console.log("thanks for sharing")
-            })
-        } else {
-            alert("You can only share on mobile devices :(")
-
-        }
-    }
     
     return (
         <>
@@ -37,7 +23,7 @@ const Verses = (props) => {
             <Row>
                 <Col lg={{size:12}}>
                     <Button onClick={()=>{setShowTranslation(true)}}>Translation</Button>
-                    <Button onClick={share}>share</Button>
+                    
                 </Col>
             </Row>
             
