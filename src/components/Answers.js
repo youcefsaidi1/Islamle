@@ -8,6 +8,7 @@ import Share from "./Share";
 const Answers = (props) => {
 
     const surahs = require('../surahs.json')
+
     const [disabled1, setDisabled1] = useState(false)
     const [disabled2, setDisabled2] = useState(true)
     const [disabled3, setDisabled3] = useState(true)
@@ -118,7 +119,7 @@ const Answers = (props) => {
 
     return (
         <>
-            <div className="Answers" fluid>
+            <div className="Answers">
                 <Modal 
                     show={show}
                     >

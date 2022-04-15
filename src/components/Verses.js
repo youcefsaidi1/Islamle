@@ -16,8 +16,8 @@ const Verses = (props) => {
                     <h1 className="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</h1>
                 </Col>
             </Row>        
-            <Container className="Verses" fluid>
-                <h1 className="verse">{props.verses}</h1>
+            <Container className="Verses">
+                <h1 className="verse">{props.surah_verses}</h1>
             </Container>
             <Row>
                 <Col lg={{size:12}}>
@@ -39,7 +39,6 @@ const Verses = (props) => {
                 </ModalBody>
                 <Button onClick={()=>{setShowTranslation(false)}}>Close</Button>
             </Modal>
-        
         </>
     
     )

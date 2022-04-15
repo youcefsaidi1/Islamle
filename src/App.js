@@ -22,6 +22,7 @@ function App() {
     checkIfMobile()
     if (ENV === 'PROD'){
         axios.get('https://8dqpicjnn1.execute-api.us-east-1.amazonaws.com/getRandomVerses').then(res => {
+
           setSurahData(res.data)
           let verses = res.data.verses.map(v => {
               return v.text
@@ -69,7 +70,7 @@ function App() {
     }).catch(error => {
       console.log(error)
     })
-  }{
+  }else{
     const testSurah = getTestSurah()
     setVersesLoaded(true)
     setSurahData(testSurah);
@@ -101,7 +102,7 @@ function App() {
         {
           versesLoaded
           ?
-          <Verses verses={verse} data={surahData}/>
+          <Verses surah_verses={verse} data={surahData}/>
           :
           <Row className="mt-2 mb-5 d-flex justify-content-center">
             <Col sm={{size:4}}>
