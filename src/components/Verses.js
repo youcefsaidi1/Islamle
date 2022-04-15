@@ -3,11 +3,11 @@ import {Container, Button, ModalBody, ModalHeader, Row, Col} from 'reactstrap'
 import {Modal, ModalTitle} from 'react-bootstrap';
 
 
-const Verses = (props) => {
+const Verses = ({data, surah_verses}) => {
     
     const [showTranslation, setShowTranslation] = useState(false)
     
-    const translation = props.data.verses.map((verse)=> <li>{verse.translated_text}</li>)
+    const translation = data.verses.map((verse)=> <li key={verse.key}>{verse.translated_text}</li>)
     
     return (
         <>
@@ -17,7 +17,7 @@ const Verses = (props) => {
                 </Col>
             </Row>        
             <Container className="Verses">
-                <h1 className="verse">{props.surah_verses}</h1>
+                <h1 className="verse">{surah_verses}</h1>
             </Container>
             <Row>
                 <Col lg={{size:12}}>
@@ -33,7 +33,7 @@ const Verses = (props) => {
                     </ModalTitle>
                 </ModalHeader>
                 <ModalBody>
-                <ol start={props.data.verses[0].number}>
+                <ol start={data.verses[0].number}>
                     {translation}
                 </ol>
                 </ModalBody>
