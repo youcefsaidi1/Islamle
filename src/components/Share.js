@@ -14,7 +14,7 @@ function Share({ label, text, title, setShow }) {
             .then(() =>
               console.log("Thank you for sharing!")
             ).catch(err => {
-              alert(err)
+              console.log(err)
             });
         } catch (error) {
           console.log(error)
