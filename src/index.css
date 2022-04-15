@@ -40,6 +40,10 @@ body {
   padding-right: 0px !important;
   }
 
+.Select {
+  width: 50vw !important;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

@@ -6,9 +6,6 @@ import {Modal} from 'react-bootstrap';
 import Share from "./Share";
 
 const Answers = (props) => {
-
-    const surahs = require('../surahs.json')
-
     const [disabled1, setDisabled1] = useState(false)
     const [disabled2, setDisabled2] = useState(true)
     const [disabled3, setDisabled3] = useState(true)
@@ -77,12 +74,13 @@ const Answers = (props) => {
     }
 
     const newVerses = () =>{
+        const isSwitchingDifficulty = false
         setLost(false)
         setShow(false)
         setAns1([false, 0])
         setAns2([false, 0])
         setAns3([false, 0])
-        props.new_verse()
+        props.newVerse(isSwitchingDifficulty)
         setDisabled1(false)
     }
 
@@ -170,15 +168,14 @@ const Answers = (props) => {
                     <Row className='mt-3 d-flex justify-content-center'>
                         <Col sm={{size: 8}}>
                             <Select
-                                styles={customStyles1}
                                 className="basic-double"
                                 name="Answer 1"
                                 onChange={handleChange1}
                                 value={ans1[0]}
                                 multi={true}
                                 isDisabled={disabled1}
-
-                                options={surahs.map((surah) => {
+                                styles={customStyles1}
+                                options={props.surahs.map((surah) => {
                                     let surah_id = surah["id"]
                                     let surah_name = surah["name"] + "( " + surah['arabic_name'] + " )"
                                     return {id: surah_id, label: surah_name, value:surah_name}
@@ -190,14 +187,14 @@ const Answers = (props) => {
                     <Row className='mt-3 d-flex justify-content-center'>
                         <Col sm={{size: 8}}>
                             <Select
-                                styles={customStyles2}
-                                className="basic-single"
+                                className="basic-double"
                                 name="Answer 2"
                                 onChange={handleChange2}
                                 value={ans2[0]}
                                 multi={true}
                                 isDisabled={disabled2}
-                                options={surahs.map((surah) => {
+                                styles={customStyles2}
+                                options={props.surahs.map((surah) => {
                                     let surah_id = surah["id"]
                                     let surah_name = surah["name"] + "( " + surah['arabic_name'] + " )"
                                     return {id: surah_id, label: surah_name, value: surah_name}
@@ -210,13 +207,13 @@ const Answers = (props) => {
                         <Col sm={{size: 8}}>
                             <Select
                                 styles={customStyles3}
-                                className="basic-single"
+                                className="basic-double"
                                 name="Answer 3"
                                 onChange={handleChange3}
                                 value={ans3[0]}
                                 multi={true}
                                 isDisabled={disabled3}
-                                options={surahs.map((surah) => {
+                                options={props.surahs.map((surah) => {
                                     let surah_id = surah["id"]
                                     let surah_name = surah["name"] + "( " + surah['arabic_name'] + " )"
                                     return {id: surah_id, label: surah_name, value: surah_name}

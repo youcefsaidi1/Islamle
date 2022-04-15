@@ -1,8 +1,10 @@
 .App {
   text-align: center;
+  width: 100vw !important;
+  min-height:100vh !important;
+  overflow-x: hidden !important;
+  overflow-y: scroll !important;
 }
-
-
 
 .App-logo {
   height: 40vmin;
@@ -16,15 +18,18 @@
 }
 
 .NavBar {
+  display: grid;
   font-size: 2em;
   font-family: 'Pacifico', cursive;
   background-color: rgb(116, 116, 116);
+  padding: 0%;
   
   /* background: -webkit-linear-gradient(#eee, #333);
   -webkit-background-clip: text;
   -backgroud-clip: text;
   -webkit-text-fill-color: transparent; */
 }
+
 
 .modal-content{
   background-color: rgb(214, 214, 214);
