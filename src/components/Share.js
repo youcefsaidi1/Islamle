@@ -1,7 +1,7 @@
 import React from "react";
 import {Button} from 'reactstrap'
 
-function Share({ label, text, title }) {
+function Share({ label, text, title, setShow }) {
 
     let url = "https://islamle.com"
     const details = { url, title, text };
@@ -13,9 +13,12 @@ function Share({ label, text, title }) {
             .share(details)
             .then(() =>
               console.log("Thank you for sharing!")
-            );
+            ).catch(err => {
+              alert(err)
+            });
         } catch (error) {
-          alert(`There was an error sharing: ${error}`);
+          console.log(error)
+          setShow(false)
         }
       } else {
         console.log(
@@ -24,7 +27,7 @@ function Share({ label, text, title }) {
       }
     };
 
-
+    
     return (
       <Button color='success' className="Share" onClick={share}>
         <span className="ShareText">{label}</span>

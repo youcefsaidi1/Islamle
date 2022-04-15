@@ -17,7 +17,7 @@ function App() {
   const [versesLoaded, setVersesLoaded] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [easyMode, setEasyMode] = useState(true)
-  const ENV = 'PROD'
+  const ENV = 'QA'
 
   const getTestSurah = () => {
     return require('./testSurah.json')
@@ -78,7 +78,6 @@ function App() {
         console.log(error)
       })    
     }else{
-      console.log("getting a hard surah")
         axios.get('https://8dqpicjnn1.execute-api.us-east-1.amazonaws.com/getRandomVerses').then(res => {
           setSurahData(res.data)
           let verses = res.data.verses.map(v => {

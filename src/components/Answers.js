@@ -20,6 +20,7 @@ const Answers = (props) => {
     const [lost, setLost] = useState(false)
 
     const [count, setCount] = useState(0)
+    const [shareText, setShareText] = useState("")
 
     const handleChange1 = (val) => {
         setDisabled1(true)
@@ -27,7 +28,7 @@ const Answers = (props) => {
         if (val.id === props.data.surah_number){
             setCount(count+1)
             setModalTitle("Fantasic!")
-            setModalBody(`You guessed ${count + 1} surahs correct!`)
+            setModalBody(`You guessed ${count + 1} ${(count === 0)?"surah":"surahs"}  correct!`)
             setModalFooter(`Surah: ${props.data.surah_name}`)
             setShow(true)
             
@@ -44,7 +45,7 @@ const Answers = (props) => {
         if (val.id === props.data.surah_number){
             setCount(count+1)
             setModalTitle("Nice Job!")
-            setModalBody(`You guessed ${count + 1} surahs correct!`)
+            setModalBody(`You guessed ${count + 1} ${(count === 0)?"surah":"surahs"}  correct!`)
             setModalFooter(`Surah: ${props.data.surah_name}`)
             setShow(true)
         }else{
@@ -59,14 +60,15 @@ const Answers = (props) => {
         if (val.id === props.data.surah_number){
             setCount(count+1)
             setModalTitle("You got it!")
-            setModalBody(`You guessed ${count + 1} surahs correct!`)
+            setModalBody(`You guessed ${count + 1} ${(count === 0)?"surah":"surahs"} correct!`)
             setModalFooter(`Surah: ${props.data.surah_name}`)
             setShow(true)
             
         }else{
             setLost(true)
+            setShareText(`I guessed ${count} surahs correct.\nHow many can you get?`)
             setModalTitle("You'll get it next time inshAllah!")
-            setModalBody(`You guessed ${count} surahs correct!`)
+            setModalBody(`You guessed ${count} ${(count === 1)?"surah":"surahs"} correct!`)
             setModalFooter(`Surah: ${props.data.surah_name}`)
             setCount(0)
             setShow(true)
@@ -148,7 +150,8 @@ const Answers = (props) => {
                                             <Share
                                                 label="Share"
                                                 title={`Islamle - Quran Memorization Game`}
-                                                text={`I guessed ${count} surahs correct.\nHow many can you get?`}
+                                                text={shareText}
+                                                setShow={setShow}
                                             />
                                         </Col>
                                     :
