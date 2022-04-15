@@ -17,7 +17,7 @@ function App() {
   const [versesLoaded, setVersesLoaded] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [easyMode, setEasyMode] = useState(true)
-  const ENV = 'QA'
+  const ENV = 'PROD'
 
   const getTestSurah = () => {
     return require('./testSurah.json')
