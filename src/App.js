@@ -17,7 +17,7 @@ function App() {
   const [versesLoaded, setVersesLoaded] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [easyMode, setEasyMode] = useState(true)
-  const ENV = 'QA'
+  const ENV = 'PROD'
 
   const getTestSurah = () => {
     return require('./testSurah.json')
@@ -118,15 +118,25 @@ function App() {
   return (
     <div className='App'>
       <>    
-      <Row>
-        <div className="NavBar mb-2">
-         
-            <div className="title">Islamle</div>
-            <EasyButton id="toggle_button" easyMode={easyMode} setEasyMode={setEasyMode} newVerse={newVerse} setSurahs={setSurahs} longSurahList={long_surah_list} shortSurahList={short_surah_list}/>
+
+        <div className="NavBar mb-2 pr-4">
+          <Row className="d-flex align-items-center">
+            <Col >
+            </Col>
+            <Col >
+              <div className="title">Islamle</div>
+            </Col>
+            <Col className="d-flex align-items-center justify-content-end">
+              <EasyButton id="toggle_button" easyMode={easyMode} setEasyMode={setEasyMode} newVerse={newVerse} setSurahs={setSurahs} longSurahList={long_surah_list} shortSurahList={short_surah_list}/>
+            </Col>            
+          </Row>
+
+            
+            
         
         </div>
         
-      </Row>  
+       
       {/* <EasyButton id="toggle_button" easyMode={easyMode} setEasyMode={setEasyMode} newVerse={newVerse} setSurahs={setSurahs} longSurahList={long_surah_list} shortSurahList={short_surah_list}/> */}
       <Row className="mt-3 mb-3">
         {

@@ -26,7 +26,7 @@ function EasyButton({easyMode, setEasyMode, newVerse, setSurahs, longSurahList, 
     }
     
     return (
-      <Button color={color} className="EasyButton" onClick={handleToggle}>
+      <Button color={color} className="EasyButton my-auto mx-auto" onClick={handleToggle}>
         <span className="easyButtonText">{label}</span>
       </Button>
     );
