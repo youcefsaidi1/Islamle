@@ -1,9 +1,9 @@
 import React from "react";
 import {Button} from 'reactstrap'
 
-function Share({ label, text, title, setShow }) {
+function Share({ label, text, setShow }) {
     let url = "https://islamle.com";
-    const details = { url, title, text };
+    const details = { url, text };
   
     const share = async () => {
       if (navigator.share) {
