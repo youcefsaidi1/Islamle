@@ -17,7 +17,6 @@ function App() {
   const [versesLoaded, setVersesLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [easyMode, setEasyMode] = useState(true);
-  // const [ENV, setENV] = useState("PROD");
   const URL = "https://8dqpicjnn1.execute-api.us-east-1.amazonaws.com";
 
   const getTestSurah = (easy) => {
@@ -29,9 +28,7 @@ function App() {
   }
   
   useEffect( () => {
-    // setENV((window.location.href === "https://islamle.com/") ? "PROD" : "QA");
     checkIfMobile();
-    console.log(process.env.NODE_ENV)
     if (process.env.NODE_ENV === 'production'){
         axios.get(`${URL}/getEasyVerses`).then(res => {
           setSurahData(res.data);
@@ -139,11 +136,8 @@ function App() {
           ?
           <Verses surah_verses={verse} data={surahData}/>
           :
-          <Row className="mt-2 mb-5 d-flex justify-content-center">
-            <Col sm={{size:4}}>
-              <div class="loader"></div>
-              {/* <img src={require("./loading.gif")} alt="loading gif" width="50" hieght="50"></img> */}
-            </Col>    
+          <Row className="my-3 d-flex justify-content-center">
+            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
           </Row>  
           }
       </Row>
