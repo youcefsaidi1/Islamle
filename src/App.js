@@ -1,59 +1,54 @@
 
 import './App.css';
-import {Row, Col} from 'reactstrap'
-import React, {useState, useEffect} from 'react'
-import Verses from './components/Verses'
-import Answers from './components/Answers'
-import axios from 'axios'
+import {Row, Col} from 'reactstrap';
+import React, {useState, useEffect} from 'react';
+import Verses from './components/Verses';
+import Answers from './components/Answers';
+import axios from 'axios';
 import EasyButton from './components/EasyButton';
 
 function App() {
-  const long_surah_list = require('./surahs.json')
-  const short_surah_list = long_surah_list.slice(77,114)
+  const long_surah_list = require('./surahs.json');
+  const short_surah_list = long_surah_list.slice(77,114);
 
-  const [surahs, setSurahs] = useState(short_surah_list)
-  const [verse, setVerse] = useState("")
-  const [surahData, setSurahData] = useState()
-  const [versesLoaded, setVersesLoaded] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
-  const [easyMode, setEasyMode] = useState(true)
-  const ENV = 'PROD'
+  const [surahs, setSurahs] = useState(short_surah_list);
+  const [verse, setVerse] = useState("");
+  const [surahData, setSurahData] = useState();
+  const [versesLoaded, setVersesLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [easyMode, setEasyMode] = useState(true);
+  const [ENV, setENV] = useState("QA");
+  const URL = "https://8dqpicjnn1.execute-api.us-east-1.amazonaws.com";
 
-  const getTestSurah = () => {
-    return require('./testSurah.json')
+  const getTestSurah = (easy) => {
+    if (!easy){
+      return require('./testSurahHard.json');
+    }
+    return require('./testSurahEasy.json');
+    
   }
   
-  useEffect( ()=>{
-
-    checkIfMobile()
+  useEffect( () => {
+    setENV((window.location.href === "https://islamle.com") ? "PROD" : "QA");
+    checkIfMobile();
     if (ENV === 'PROD'){
-        axios.get('https://8dqpicjnn1.execute-api.us-east-1.amazonaws.com/getEasyVerses').then(res => {
-          setSurahData(res.data)
+        axios.get(`${URL}/getEasyVerses`).then(res => {
+          setSurahData(res.data);
           let verses = res.data.verses.map(v => {
-              return v.text
+              return v.text;
           })
-          const my_symbol = " ۝ "
-          verses[0] += my_symbol
-          verses[1] += my_symbol
+          const my_symbol = " ۝ ";
+          verses[0] += my_symbol;
+          verses[1] += my_symbol;
           
-          setVerse(verses)
-          setVersesLoaded(true)
+          setVerse(verses);
+          setVersesLoaded(true);
         }).catch(error => {
-          console.log(error)
+          generateSampleData();
+          console.log(error);
         })
     }else {
-        const testSurah = getTestSurah()
-        setVersesLoaded(true)
-        setSurahData(testSurah);
-        
-        let verses = testSurah.verses.map(v => {
-          return v.text
-        });
-        
-        const my_symbol = " ۝ "
-        verses[0] += my_symbol;
-        verses[1] += my_symbol;
-        setVerse(verses);
+      generateSampleData(easyMode);
     }
 
  },[])
@@ -63,7 +58,7 @@ function App() {
   setVersesLoaded(false)
   if (ENV === 'PROD'){
     if (difficulty){
-      axios.get('https://8dqpicjnn1.execute-api.us-east-1.amazonaws.com/getEasyVerses').then(res => {
+      axios.get(`${URL}/getEasyVerses`).then(res => {
         setSurahData(res.data)
         let verses = res.data.verses.map(v => {
             return v.text
@@ -75,10 +70,11 @@ function App() {
         setVerse(verses)
         setVersesLoaded(true)
       }).catch(error => {
+        generateSampleData(!easyMode)
         console.log(error)
       })    
     }else{
-        axios.get('https://8dqpicjnn1.execute-api.us-east-1.amazonaws.com/getRandomVerses').then(res => {
+        axios.get(`${URL}/getRandomVerses`).then(res => {
           setSurahData(res.data)
           let verses = res.data.verses.map(v => {
               return v.text
@@ -90,27 +86,32 @@ function App() {
           setVerse(verses)
           setVersesLoaded(true)
         }).catch(error => {
+          generateSampleData(!easyMode)
           console.log(error)
         })      
     }
 
   }else{
-    const testSurah = getTestSurah()
-    setVersesLoaded(true)
-    setSurahData(testSurah);
-    
-    let verses = testSurah.verses.map(v => {
-      return v.text
-    });
-    const my_symbol = " ۝ "
-    verses[0] += my_symbol;
-    verses[1] += my_symbol;
-    setVerse(verses);    
+    generateSampleData(!easyMode)
   }
  }
 
+ const generateSampleData = (difficulty) => {
+  const testSurah = getTestSurah(difficulty)
+  setSurahData(testSurah);
+  
+  let verses = testSurah.verses.map(v => {
+    return v.text
+  });
+  const my_symbol = " ۝ "
+  verses[0] += my_symbol;
+  verses[1] += my_symbol;
+  setVerse(verses);   
+  setVersesLoaded(true)
+ }
+
  const checkIfMobile = () => {
-   if (/Mobi/.test(navigator.userAgent)) {
+   if (navigator.canShare() && /Mobi/.test(navigator.userAgent)) {
      setIsMobile(true)
 }
  }
@@ -130,14 +131,7 @@ function App() {
               <EasyButton id="toggle_button" easyMode={easyMode} setEasyMode={setEasyMode} newVerse={newVerse} setSurahs={setSurahs} longSurahList={long_surah_list} shortSurahList={short_surah_list}/>
             </Col>            
           </Row>
-
-            
-            
-        
         </div>
-        
-       
-      {/* <EasyButton id="toggle_button" easyMode={easyMode} setEasyMode={setEasyMode} newVerse={newVerse} setSurahs={setSurahs} longSurahList={long_surah_list} shortSurahList={short_surah_list}/> */}
       <Row className="mt-3 mb-3">
         {
           versesLoaded
@@ -152,7 +146,7 @@ function App() {
           }
       </Row>
       <Row className="mt-3">
-        <Answers data={surahData} surah_verses={verse} newVerse={newVerse} isMobile={isMobile} surahs={surahs}/>
+        <Answers surahData={surahData} newVerse={newVerse} isMobile={isMobile} surahs={surahs}/>
       </Row>
       </>
       

@@ -1,89 +1,88 @@
-import React, {useState, Fragment} from 'react'
-import {Col, Row, ModalHeader, ModalBody, ModalFooter, Button} from 'reactstrap'
-import Select from 'react-select'
-import { ModalTitle } from 'react-bootstrap'
+import React, {useState, Fragment} from 'react';
+import {Col, Row, ModalHeader, ModalBody, ModalFooter, Button} from 'reactstrap';
+import Select from 'react-select';
+import { ModalTitle } from 'react-bootstrap';
 import {Modal} from 'react-bootstrap';
 import Share from "./Share";
+const Answers = ({surahData, newVerse, isMobile, surahs}) => {
+    const [disabled1, setDisabled1] = useState(false);
+    const [disabled2, setDisabled2] = useState(true);
+    const [disabled3, setDisabled3] = useState(true);
+    const [show, setShow] = useState(false);
+    const [modalTitle, setModalTitle] = useState("");
+    const [modalBody, setModalBody] = useState("");
+    const [modalFooter, setModalFooter] = useState("");
+    const [ans1, setAns1] = useState(["", 0]);
+    const [ans2, setAns2] = useState(["", 0]);
+    const [ans3, setAns3] = useState(["", 0]);
 
-const Answers = (props) => {
-    const [disabled1, setDisabled1] = useState(false)
-    const [disabled2, setDisabled2] = useState(true)
-    const [disabled3, setDisabled3] = useState(true)
-    const [show, setShow] = useState(false)
-    const [modalTitle, setModalTitle] = useState("")
-    const [modalBody, setModalBody] = useState("")
-    const [modalFooter, setModalFooter] = useState("")
-    const [ans1, setAns1] = useState(["", 0])
-    const [ans2, setAns2] = useState(["", 0])
-    const [ans3, setAns3] = useState(["", 0])
+    const [lost, setLost] = useState(false);
 
-    const [lost, setLost] = useState(false)
-
-    const [count, setCount] = useState(0)
-    const [shareText, setShareText] = useState("")
+    const [count, setCount] = useState(0);
+    const [shareText, setShareText] = useState("");
 
     const handleChange1 = (val) => {
-        setDisabled1(true)
-        setAns1([val.name, val.id])
-        if (val.id === props.data.surah_number){
-            setCount(count+1)
-            setModalTitle("Fantasic!")
-            setModalBody(`You guessed ${count + 1} ${(count === 0)?"surah":"surahs"}  correct!`)
-            setModalFooter(`Surah: ${props.data.surah_name}`)
-            setShow(true)
+        setDisabled1(true);
+        setAns1([val.name, val.id]);
+        if (val.id === surahData.surah_number){
+            setCount(count+1);
+            setModalTitle("Fantasic!");
+            setModalBody(`You guessed ${count + 1} ${(count === 0)?"surah":"surahs"}  correct!`);
+            setModalFooter(`Surah: ${surahData.surah_name}`);
+            setShow(true);
             
         }else{
-            setDisabled2(false)
+            setDisabled2(false);
         }
        
     }
 
     const handleChange2 = (val) => {
         
-        setDisabled2(true)
-        setAns2([val.name, val.id])
-        if (val.id === props.data.surah_number){
-            setCount(count+1)
-            setModalTitle("Nice Job!")
-            setModalBody(`You guessed ${count + 1} ${(count === 0)?"surah":"surahs"}  correct!`)
-            setModalFooter(`Surah: ${props.data.surah_name}`)
-            setShow(true)
+        setDisabled2(true);
+        setAns2([val.name, val.id]);
+        if (val.id === surahData.surah_number){
+            setCount(count+1);
+            setModalTitle("Nice Job!");
+            setModalBody(`You guessed ${count + 1} ${(count === 0)?"surah":"surahs"}  correct!`);
+            setModalFooter(`Surah: ${surahData.surah_name}`);
+            setShow(true);
         }else{
-            setDisabled3(false)
+            setDisabled3(false);
         }
     }
 
     const handleChange3 = (val) => {
         
-        setDisabled3(true)
-        setAns3([val.name, val.id])
-        if (val.id === props.data.surah_number){
-            setCount(count+1)
-            setModalTitle("You got it!")
-            setModalBody(`You guessed ${count + 1} ${(count === 0)?"surah":"surahs"} correct!`)
-            setModalFooter(`Surah: ${props.data.surah_name}`)
-            setShow(true)
+        setDisabled3(true);
+        setAns3([val.name, val.id]);
+        if (val.id === surahData.surah_number){
+            setCount(count+1);
+            setModalTitle("You got it!");
+            setModalBody(`You guessed ${count + 1} ${(count === 0)?"surah":"surahs"} correct!`);
+            setModalFooter(`Surah: ${surahData.surah_name}`);
+            setShow(true);
             
         }else{
-            setLost(true)
-            setShareText(`I guessed ${count} surahs correct.\nHow many can you get?`)
-            setModalTitle("You'll get it next time inshAllah!")
-            setModalBody(`You guessed ${count} ${(count === 1)?"surah":"surahs"} correct!`)
-            setModalFooter(`Surah: ${props.data.surah_name}`)
-            setCount(0)
-            setShow(true)
+            setLost(true);
+            setShareText(`I guessed ${count} surahs correct.\nHow many can you get?`);
+            setModalTitle("You'll get it next time inshAllah!");
+            setModalBody(`You guessed ${count} ${(count === 1)?"surah":"surahs"} correct!`);
+            setModalFooter(`Surah: ${surahData.surah_name}`);
+            setCount(0);
+            setShow(true);
         }
     }
 
     const newVerses = () =>{
-        const isSwitchingDifficulty = false
-        setLost(false)
-        setShow(false)
-        setAns1([false, 0])
-        setAns2([false, 0])
-        setAns3([false, 0])
-        props.newVerse(isSwitchingDifficulty)
-        setDisabled1(false)
+        const isSwitchingDifficulty = false;
+        setLost(false);
+        setShow(false);
+        setAns1([false, 0]);
+        setAns2([false, 0]);
+        setAns3([false, 0]);
+        newVerse(isSwitchingDifficulty);
+        setDisabled1(false);
     }
 
 
@@ -91,7 +90,7 @@ const Answers = (props) => {
     singleValue: (provided, state) => {
         const opacity = state.isDisabled ? 0.5 : 1;
         const transition = 'opacity 300ms';  
-        const color = props.data.surah_number === ans1[1] ? "green" : "red";
+        const color = surahData.surah_number === ans1[1] ? "green" : "red";
 
         return { ...provided, color, opacity, transition };
     }
@@ -101,7 +100,7 @@ const Answers = (props) => {
         singleValue: (provided, state) => {
             const opacity = state.isDisabled ? 0.5 : 1;
             const transition = 'opacity 300ms';  
-            const color = props.data.surah_number === ans2[1] ? "green" : "red";
+            const color = surahData.surah_number === ans2[1] ? "green" : "red";
     
             return { ...provided, color, opacity, transition };
         }
@@ -111,7 +110,7 @@ const Answers = (props) => {
         singleValue: (provided, state) => {
             const opacity = state.isDisabled ? 0.5 : 1;
             const transition = 'opacity 300ms';  
-            const color = props.data.surah_number === ans3[1] ? "green" : "red";
+            const color = surahData.surah_number === ans3[1] ? "green" : "red";
     
             return { ...provided, color, opacity, transition };
         }
@@ -144,7 +143,7 @@ const Answers = (props) => {
                                 <Col>
                                     <Button onClick={newVerses}>Refresh</Button>
                                 </Col>
-                                    {props.isMobile 
+                                    {isMobile 
                                     ? 
                                         <Col>
                                             <Share
@@ -178,7 +177,7 @@ const Answers = (props) => {
                                 multi={true}
                                 isDisabled={disabled1}
                                 styles={customStyles1}
-                                options={props.surahs.map((surah) => {
+                                options={surahs.map((surah) => {
                                     let surah_id = surah["id"]
                                     let surah_name = surah["name"] + "( " + surah['arabic_name'] + " )"
                                     return {id: surah_id, label: surah_name, value:surah_name}
@@ -197,7 +196,7 @@ const Answers = (props) => {
                                 multi={true}
                                 isDisabled={disabled2}
                                 styles={customStyles2}
-                                options={props.surahs.map((surah) => {
+                                options={surahs.map((surah) => {
                                     let surah_id = surah["id"]
                                     let surah_name = surah["name"] + "( " + surah['arabic_name'] + " )"
                                     return {id: surah_id, label: surah_name, value: surah_name}
@@ -216,7 +215,7 @@ const Answers = (props) => {
                                 value={ans3[0]}
                                 multi={true}
                                 isDisabled={disabled3}
-                                options={props.surahs.map((surah) => {
+                                options={surahs.map((surah) => {
                                     let surah_id = surah["id"]
                                     let surah_name = surah["name"] + "( " + surah['arabic_name'] + " )"
                                     return {id: surah_id, label: surah_name, value: surah_name}

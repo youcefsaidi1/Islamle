@@ -1,13 +1,13 @@
-import React, {useState} from 'react'
-import {Container, Button, ModalBody, ModalHeader, Row, Col} from 'reactstrap'
+import React, {useState} from 'react';
+import {Container, Button, ModalBody, ModalHeader, Row, Col} from 'reactstrap';
 import {Modal, ModalTitle} from 'react-bootstrap';
 
 
 const Verses = ({data, surah_verses}) => {
     
-    const [showTranslation, setShowTranslation] = useState(false)
-    
-    const translation = data.verses.map((verse)=> <li key={verse.key}>{verse.translated_text}</li>)
+    const [showTranslation, setShowTranslation] = useState(false);
+
+    const translation = data.verses.map((verse)=> <li key={verse.key}>{verse.translated_text}</li>);
     
     return (
         <>
