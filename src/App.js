@@ -52,6 +52,7 @@ function App() {
  },[])
 
  const newVerse = (isSwitchingDifficulty)=>{
+  window.scrollTo(0, 0)
   const difficulty = isSwitchingDifficulty ? !easyMode : easyMode;
   setVersesLoaded(false)
   if (process.env.NODE_ENV === 'production'){
