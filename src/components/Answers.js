@@ -34,11 +34,9 @@ const Answers = ({surahData, newVerse, isMobile, surahs}) => {
         }else{
             setDisabled2(false);
         }
-       
     }
 
     const handleChange2 = (val) => {
-        
         setDisabled2(true);
         setAns2([val.name, val.id]);
         if (val.id === surahData.surah_number){
@@ -53,7 +51,6 @@ const Answers = ({surahData, newVerse, isMobile, surahs}) => {
     }
 
     const handleChange3 = (val) => {
-        
         setDisabled3(true);
         setAns3([val.name, val.id]);
         if (val.id === surahData.surah_number){
@@ -76,24 +73,26 @@ const Answers = ({surahData, newVerse, isMobile, surahs}) => {
 
     const newVerses = () =>{
         const isSwitchingDifficulty = false;
+        newVerse(isSwitchingDifficulty);
         setLost(false);
         setShow(false);
         setAns1([false, 0]);
         setAns2([false, 0]);
         setAns3([false, 0]);
-        newVerse(isSwitchingDifficulty);
         setDisabled1(false);
+        setDisabled2(true);
+        setDisabled3(true)
     }
 
 
     const customStyles1 = {
-    singleValue: (provided, state) => {
-        const opacity = state.isDisabled ? 0.5 : 1;
-        const transition = 'opacity 300ms';  
-        const color = surahData.surah_number === ans1[1] ? "green" : "red";
+        singleValue: (provided, state) => {
+            const opacity = state.isDisabled ? 0.5 : 1;
+            const transition = 'opacity 300ms';  
+            const color = surahData.surah_number === ans1[1] ? "green" : "red";
 
-        return { ...provided, color, opacity, transition };
-    }
+            return { ...provided, color, opacity, transition };
+        }
     }
 
     const customStyles2 = {

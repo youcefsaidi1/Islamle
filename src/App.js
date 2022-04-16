@@ -69,7 +69,7 @@ function App() {
         setVerse(verses)
         setVersesLoaded(true)
       }).catch(error => {
-        generateSampleData(!easyMode)
+        generateSampleData(difficulty)
         console.log(error)
       })    
     }else{
@@ -85,13 +85,12 @@ function App() {
           setVerse(verses)
           setVersesLoaded(true)
         }).catch(error => {
-          generateSampleData(!easyMode)
+          generateSampleData(difficulty)
           console.log(error)
         })      
     }
-
   }else{
-    generateSampleData(!easyMode)
+    generateSampleData(difficulty)
   }
  }
 
