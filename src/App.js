@@ -29,7 +29,6 @@ function App() {
   }
   
   useEffect( () => {
-    console.log(window.location.href)
     setENV((window.location.href === "https://islamle.com/") ? "PROD" : "QA");
     checkIfMobile();
     if (ENV === 'PROD'){
@@ -57,7 +56,6 @@ function App() {
  const newVerse = (isSwitchingDifficulty)=>{
   const difficulty = isSwitchingDifficulty ? !easyMode : easyMode;
   setVersesLoaded(false)
-  console.log(ENV)
   if (ENV === 'PROD'){
     if (difficulty){
       axios.get(`${URL}/getEasyVerses`).then(res => {
