@@ -30,7 +30,7 @@ function App() {
   
   useEffect( () => {
     console.log(window.location.href)
-    setENV((window.location.href === "https://islamle.com") ? "PROD" : "QA");
+    setENV((window.location.href === "https://islamle.com/") ? "PROD" : "QA");
     checkIfMobile();
     if (ENV === 'PROD'){
         axios.get(`${URL}/getEasyVerses`).then(res => {
