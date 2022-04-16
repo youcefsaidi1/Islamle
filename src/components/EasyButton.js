@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {Button} from 'reactstrap'
 
-function EasyButton({easyMode, setEasyMode, newVerse, setSurahs, longSurahList, shortSurahList}) {
+function EasyButton({easyMode, setEasyMode, easyButtonNewVerses, setSurahs, longSurahList, shortSurahList, versesLoaded}) {
     const [color, setColor] = useState('success');
     const [label, setLabel] = useState("Juz 30");
 
@@ -20,11 +20,11 @@ function EasyButton({easyMode, setEasyMode, newVerse, setSurahs, longSurahList, 
             setSurahs(shortSurahList)
             setLabel("Juz 30");
         }
-        newVerse(isSwitchingDifficulty);
+        easyButtonNewVerses(isSwitchingDifficulty);
     }
     
     return (
-      <Button color={color} className="EasyButton my-auto mx-auto" onClick={handleToggle}>
+      <Button color={color} className="EasyButton my-auto mx-auto" onClick={handleToggle} disabled={versesLoaded? false:true}>
         <span className="easyButtonText">{label}</span>
       </Button>
     );

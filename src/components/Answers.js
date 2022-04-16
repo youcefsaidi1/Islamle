@@ -4,19 +4,33 @@ import Select from 'react-select';
 import { ModalTitle } from 'react-bootstrap';
 import {Modal} from 'react-bootstrap';
 import Share from "./Share";
-const Answers = ({surahData, newVerse, isMobile, surahs}) => {
-    const [disabled1, setDisabled1] = useState(false);
-    const [disabled2, setDisabled2] = useState(true);
-    const [disabled3, setDisabled3] = useState(true);
-    const [show, setShow] = useState(false);
+const Answers = ({  surahData, 
+                    newVerse, 
+                    isMobile, 
+                    surahs,
+                    disabled1,
+                    disabled2,
+                    disabled3,
+                    ans1,
+                    ans2,
+                    ans3,
+                    setAns1,
+                    setAns2,
+                    setAns3,
+                    setDisabled1,
+                    setDisabled2,
+                    setDisabled3,
+                    lost,
+                    setLost,
+                    count,
+                    setCount,
+                    show,
+                    setShow
+                }) => {
+
     const [modalTitle, setModalTitle] = useState("");
     const [modalBody, setModalBody] = useState("");
     const [modalFooter, setModalFooter] = useState("");
-    const [ans1, setAns1] = useState(["", 0]);
-    const [ans2, setAns2] = useState(["", 0]);
-    const [ans3, setAns3] = useState(["", 0]);
-    const [lost, setLost] = useState(false);
-    const [count, setCount] = useState(0);
     const [shareText, setShareText] = useState("");
 
     const handleChange1 = (val) => {
