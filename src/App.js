@@ -17,7 +17,7 @@ function App() {
   const [versesLoaded, setVersesLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [easyMode, setEasyMode] = useState(true);
-  const [ENV, setENV] = useState("QA");
+  const [ENV, setENV] = useState("PROD");
   const URL = "https://8dqpicjnn1.execute-api.us-east-1.amazonaws.com";
 
   const getTestSurah = (easy) => {
@@ -50,7 +50,7 @@ function App() {
     }else {
       generateSampleData(easyMode);
     }
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
  },[])
 
  const newVerse = (isSwitchingDifficulty)=>{
