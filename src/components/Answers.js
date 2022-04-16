@@ -15,9 +15,7 @@ const Answers = ({surahData, newVerse, isMobile, surahs}) => {
     const [ans1, setAns1] = useState(["", 0]);
     const [ans2, setAns2] = useState(["", 0]);
     const [ans3, setAns3] = useState(["", 0]);
-
     const [lost, setLost] = useState(false);
-
     const [count, setCount] = useState(0);
     const [shareText, setShareText] = useState("");
 
@@ -59,7 +57,6 @@ const Answers = ({surahData, newVerse, isMobile, surahs}) => {
             setModalBody(`You guessed ${count + 1} ${(count === 0)?"surah":"surahs"} correct!`);
             setModalFooter(`Surah: ${surahData.surah_name}`);
             setShow(true);
-            
         }else{
             setLost(true);
             setShareText(`I guessed ${count} surahs correct.\nHow many can you get?`);
@@ -90,7 +87,6 @@ const Answers = ({surahData, newVerse, isMobile, surahs}) => {
             const opacity = state.isDisabled ? 0.5 : 1;
             const transition = 'opacity 300ms';  
             const color = surahData.surah_number === ans1[1] ? "green" : "red";
-
             return { ...provided, color, opacity, transition };
         }
     }
@@ -100,7 +96,6 @@ const Answers = ({surahData, newVerse, isMobile, surahs}) => {
             const opacity = state.isDisabled ? 0.5 : 1;
             const transition = 'opacity 300ms';  
             const color = surahData.surah_number === ans2[1] ? "green" : "red";
-    
             return { ...provided, color, opacity, transition };
         }
         }
@@ -110,121 +105,114 @@ const Answers = ({surahData, newVerse, isMobile, surahs}) => {
             const opacity = state.isDisabled ? 0.5 : 1;
             const transition = 'opacity 300ms';  
             const color = surahData.surah_number === ans3[1] ? "green" : "red";
-    
             return { ...provided, color, opacity, transition };
         }
         }
 
     return (
-        <>
-            <div className="Answers">
-                <Modal 
-                    show={show}
-                    >
-                    <ModalHeader className="d-flex justify-content-center">
-                        <ModalTitle>
-                            {modalTitle}
-                        </ModalTitle>
-                    </ModalHeader>
-                    <ModalBody >
-                        <Row className="d-flex justify-content-center">
-                            {modalBody}
-                        </Row>
-                        <Row className="d-flex justify-content-center">
-                            {modalFooter}
-                        </Row>
-                        
-                    </ModalBody>
-                    <ModalFooter>
-                        {lost 
+        <div className="Answers">
+            <Modal show={show}>
+                <ModalHeader className="d-flex justify-content-center">
+                    <ModalTitle>
+                        {modalTitle}
+                    </ModalTitle>
+                </ModalHeader>
+                <ModalBody >
+                    <Row className="d-flex justify-content-center">
+                        {modalBody}
+                    </Row>
+                    <Row className="d-flex justify-content-center">
+                        {modalFooter}
+                    </Row>
+                </ModalBody>
+                <ModalFooter>
+                    {
+                        lost 
                         ?    
-                            <Row>
+                        <Row>
+                            <Col>
+                                <Button onClick={newVerses}>Refresh</Button>
+                            </Col>
+                            {
+                                isMobile 
+                                ? 
                                 <Col>
-                                    <Button onClick={newVerses}>Refresh</Button>
+                                    <Share
+                                        label="Share"
+                                        title={`Islamle - Quran Memorization Game`}
+                                        text={shareText}
+                                        setShow={setShow}
+                                    />
                                 </Col>
-                                    {isMobile 
-                                    ? 
-                                        <Col>
-                                            <Share
-                                                label="Share"
-                                                title={`Islamle - Quran Memorization Game`}
-                                                text={shareText}
-                                                setShow={setShow}
-                                            />
-                                        </Col>
-                                    :
-                                        null}
-                            </Row>
+                                :
+                                null}
+                        </Row>
                         : 
-                            <Row>
-                                <Col>
-                                    <Button onClick={newVerses}>Next</Button>
-                                </Col>
-                            </Row>
-                         }
-                    </ModalFooter>
-                </Modal>
-
-                <Fragment>
-                    <Row className='mt-3 d-flex justify-content-center'>
-                        <Col sm={{size: 8}}>
-                            <Select
-                                className="basic-double"
-                                name="Answer 1"
-                                onChange={handleChange1}
-                                value={ans1[0]}
-                                multi={true}
-                                isDisabled={disabled1}
-                                styles={customStyles1}
-                                options={surahs.map((surah) => {
-                                    let surah_id = surah["id"]
-                                    let surah_name = surah["name"] + "( " + surah['arabic_name'] + " )"
-                                    return {id: surah_id, label: surah_name, value:surah_name}
-                                })}>
-                            </Select>
-                        </Col>
-                    </Row>
-
-                    <Row className='mt-3 d-flex justify-content-center'>
-                        <Col sm={{size: 8}}>
-                            <Select
-                                className="basic-double"
-                                name="Answer 2"
-                                onChange={handleChange2}
-                                value={ans2[0]}
-                                multi={true}
-                                isDisabled={disabled2}
-                                styles={customStyles2}
-                                options={surahs.map((surah) => {
-                                    let surah_id = surah["id"]
-                                    let surah_name = surah["name"] + "( " + surah['arabic_name'] + " )"
-                                    return {id: surah_id, label: surah_name, value: surah_name}
-                                })}>
-                            </Select>
-                        </Col>
-                    </Row>
-
-                    <Row className='mt-3 d-flex justify-content-center'>
-                        <Col sm={{size: 8}}>
-                            <Select
-                                styles={customStyles3}
-                                className="basic-double"
-                                name="Answer 3"
-                                onChange={handleChange3}
-                                value={ans3[0]}
-                                multi={true}
-                                isDisabled={disabled3}
-                                options={surahs.map((surah) => {
-                                    let surah_id = surah["id"]
-                                    let surah_name = surah["name"] + "( " + surah['arabic_name'] + " )"
-                                    return {id: surah_id, label: surah_name, value: surah_name}
-                                })}>
-                            </Select>
-                        </Col>
-                    </Row>
-                </Fragment>
-            </div>
-            </>
+                        <Row>
+                            <Col>
+                                <Button onClick={newVerses}>Next</Button>
+                            </Col>
+                        </Row>
+                        }
+                </ModalFooter>
+            </Modal>
+            <Fragment>
+                <Row className='mt-3 d-flex justify-content-center'>
+                    <Col sm={{size: 8}}>
+                        <Select
+                            className="basic-double"
+                            name="Answer 1"
+                            onChange={handleChange1}
+                            value={ans1[0]}
+                            multi={true}
+                            isDisabled={disabled1}
+                            styles={customStyles1}
+                            options={surahs.map((surah) => {
+                                let surah_id = surah["id"]
+                                let surah_name = surah["name"] + "( " + surah['arabic_name'] + " )"
+                                return {id: surah_id, label: surah_name, value:surah_name}
+                            })}>
+                        </Select>
+                    </Col>
+                </Row>
+                <Row className='mt-3 d-flex justify-content-center'>
+                    <Col sm={{size: 8}}>
+                        <Select
+                            className="basic-double"
+                            name="Answer 2"
+                            onChange={handleChange2}
+                            value={ans2[0]}
+                            multi={true}
+                            isDisabled={disabled2}
+                            styles={customStyles2}
+                            options={surahs.map((surah) => {
+                                let surah_id = surah["id"]
+                                let surah_name = surah["name"] + "( " + surah['arabic_name'] + " )"
+                                return {id: surah_id, label: surah_name, value: surah_name}
+                            })}>
+                        </Select>
+                    </Col>
+                </Row>
+                <Row className='mt-3 d-flex justify-content-center'>
+                    <Col sm={{size: 8}}>
+                        <Select
+                            styles={customStyles3}
+                            className="basic-double"
+                            name="Answer 3"
+                            onChange={handleChange3}
+                            value={ans3[0]}
+                            multi={true}
+                            isDisabled={disabled3}
+                            options={surahs.map((surah) => {
+                                let surah_id = surah["id"]
+                                let surah_name = surah["name"] + "( " + surah['arabic_name'] + " )"
+                                return {id: surah_id, label: surah_name, value: surah_name}
+                            })}>
+                        </Select>
+                    </Col>
+                </Row>
+            </Fragment>
+        </div>
     )
 }
 

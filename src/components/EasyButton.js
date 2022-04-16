@@ -2,27 +2,25 @@ import React, { useState } from "react";
 import {Button} from 'reactstrap'
 
 function EasyButton({easyMode, setEasyMode, newVerse, setSurahs, longSurahList, shortSurahList}) {
-    const [color, setColor] = useState('success')
-    const [label, setLabel] = useState("Juz 30")
+    const [color, setColor] = useState('success');
+    const [label, setLabel] = useState("Juz 30");
 
     const handleToggle = () => {
-        const isSwitchingDifficulty = true
-        setEasyMode(!easyMode)
-        
+        const isSwitchingDifficulty = true;
+        setEasyMode(!easyMode);
         if (color === 'success') {
-            setColor("danger")
+            setColor("danger");
         }else{
-            setColor("success")
+            setColor("success");
         }
         if (label === 'Juz 30'){
-            setSurahs(longSurahList)
-            setLabel("All Surahs")
+            setSurahs(longSurahList);
+            setLabel("All Surahs");
         }else{
             setSurahs(shortSurahList)
-            setLabel("Juz 30")
+            setLabel("Juz 30");
         }
-        newVerse(isSwitchingDifficulty)
-        
+        newVerse(isSwitchingDifficulty);
     }
     
     return (

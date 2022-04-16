@@ -24,7 +24,6 @@ function App() {
       return require('./testSurahHard.json');
     }
     return require('./testSurahEasy.json');
-    
   }
   
   useEffect( () => {
@@ -38,7 +37,6 @@ function App() {
           const my_symbol = " ۝ ";
           verses[0] += my_symbol;
           verses[1] += my_symbol;
-          
           setVerse(verses);
           setVersesLoaded(true);
         }).catch(error => {
@@ -65,7 +63,6 @@ function App() {
         const my_symbol = " ۝ "
         verses[0] += my_symbol
         verses[1] += my_symbol
-        
         setVerse(verses)
         setVersesLoaded(true)
       }).catch(error => {
@@ -81,7 +78,6 @@ function App() {
           const my_symbol = " ۝ "
           verses[0] += my_symbol
           verses[1] += my_symbol
-          
           setVerse(verses)
           setVersesLoaded(true)
         }).catch(error => {
@@ -97,7 +93,6 @@ function App() {
  const generateSampleData = (difficulty) => {
   const testSurah = getTestSurah(difficulty)
   setSurahData(testSurah);
-  
   let verses = testSurah.verses.map(v => {
     return v.text
   });
@@ -115,9 +110,7 @@ function App() {
  }
 
   return (
-    <div className='App'>
-      <>    
-
+    <div className='App'>  
         <div className="NavBar mb-2 pr-4">
           <Row className="d-flex align-items-center">
             <Col >
@@ -130,22 +123,20 @@ function App() {
             </Col>            
           </Row>
         </div>
-      <Row className="mt-3 mb-3">
-        {
-          versesLoaded
-          ?
-          <Verses surah_verses={verse} data={surahData}/>
-          :
-          <Row className="my-3 d-flex justify-content-center">
-            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-          </Row>  
-          }
-      </Row>
-      <Row className="mt-3">
-        <Answers surahData={surahData} newVerse={newVerse} isMobile={isMobile} surahs={surahs}/>
-      </Row>
-      </>
-      
+        <Row className="mt-3 mb-3">
+          {
+            versesLoaded
+            ?
+            <Verses surah_verses={verse} data={surahData}/>
+            :
+            <Row className="my-3 d-flex justify-content-center">
+              <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </Row>  
+            }
+        </Row>
+        <Row className="mt-3">
+          <Answers surahData={surahData} newVerse={newVerse} isMobile={isMobile} surahs={surahs}/>
+        </Row>
     </div>
   );
 }

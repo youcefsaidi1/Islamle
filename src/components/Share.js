@@ -2,8 +2,7 @@ import React from "react";
 import {Button} from 'reactstrap'
 
 function Share({ label, text, title, setShow }) {
-
-    let url = "https://islamle.com"
+    let url = "https://islamle.com";
     const details = { url, title, text };
   
     const share = async () => {
@@ -17,8 +16,8 @@ function Share({ label, text, title, setShow }) {
               console.log(err)
             });
         } catch (error) {
-          console.log(error)
-          setShow(false)
+          console.log(error);
+          setShow(false);
         }
       } else {
         console.log(
@@ -26,7 +25,6 @@ function Share({ label, text, title, setShow }) {
         );
       }
     };
-
     
     return (
       <Button color='success' className="Share" onClick={share}>

@@ -4,9 +4,7 @@ import {Modal, ModalTitle} from 'react-bootstrap';
 
 
 const Verses = ({data, surah_verses}) => {
-    
     const [showTranslation, setShowTranslation] = useState(false);
-
     const translation = data.verses.map((verse)=> <li key={verse.key}>{verse.translated_text}</li>);
     
     return (
@@ -22,10 +20,8 @@ const Verses = ({data, surah_verses}) => {
             <Row>
                 <Col lg={{size:12}}>
                     <Button onClick={()=>{setShowTranslation(true)}}>Translation</Button>
-                    
                 </Col>
             </Row>
-            
             <Modal show={showTranslation}>
                 <ModalHeader>
                     <ModalTitle>
