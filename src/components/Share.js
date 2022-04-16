@@ -7,7 +7,7 @@ function Share({ label, text, title, setShow }) {
     const details = { url, title, text };
   
     const share = async () => {
-      if (navigator.canShare()) {
+      if (navigator.share) {
         try {
           await navigator
             .share(details)

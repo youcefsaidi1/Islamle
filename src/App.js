@@ -17,7 +17,7 @@ function App() {
   const [versesLoaded, setVersesLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [easyMode, setEasyMode] = useState(true);
-  const [ENV, setENV] = useState("PROD");
+  // const [ENV, setENV] = useState("PROD");
   const URL = "https://8dqpicjnn1.execute-api.us-east-1.amazonaws.com";
 
   const getTestSurah = (easy) => {
@@ -29,9 +29,10 @@ function App() {
   }
   
   useEffect( () => {
-    setENV((window.location.href === "https://islamle.com/") ? "PROD" : "QA");
+    // setENV((window.location.href === "https://islamle.com/") ? "PROD" : "QA");
     checkIfMobile();
-    if (ENV === 'PROD'){
+    console.log(process.env.NODE_ENV)
+    if (process.env.NODE_ENV === 'production'){
         axios.get(`${URL}/getEasyVerses`).then(res => {
           setSurahData(res.data);
           let verses = res.data.verses.map(v => {
@@ -44,7 +45,7 @@ function App() {
           setVerse(verses);
           setVersesLoaded(true);
         }).catch(error => {
-          generateSampleData();
+          generateSampleData(easyMode);
           console.log(error);
         })
     }else {
@@ -56,7 +57,7 @@ function App() {
  const newVerse = (isSwitchingDifficulty)=>{
   const difficulty = isSwitchingDifficulty ? !easyMode : easyMode;
   setVersesLoaded(false)
-  if (ENV === 'PROD'){
+  if (process.env.NODE_ENV === 'production'){
     if (difficulty){
       axios.get(`${URL}/getEasyVerses`).then(res => {
         setSurahData(res.data)
@@ -140,7 +141,8 @@ function App() {
           :
           <Row className="mt-2 mb-5 d-flex justify-content-center">
             <Col sm={{size:4}}>
-              <img src={require("./loading.gif")} alt="loading gif" width="50" hieght="50"></img>
+              <div class="loader"></div>
+              {/* <img src={require("./loading.gif")} alt="loading gif" width="50" hieght="50"></img> */}
             </Col>    
           </Row>  
           }
