@@ -38,7 +38,7 @@ const Answers = ({  surahData,
         setAns1([val.name, val.id]);
         if (val.id === surahData.surah_number){
             setCount(count+1);
-            setModalTitle("Fantasic!");
+            setModalTitle("Fantastic!");
             setModalBody(`You guessed ${count + 1} ${(count === 0)?"surah":"surahs"}  correct!`);
             setModalFooter(`Surah: ${surahData.surah_name}`);
             setShow(true);
