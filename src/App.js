@@ -1,11 +1,14 @@
 
 import './App.css';
-import {Row, Col} from 'reactstrap';
+import {Row, Col, ModalBody, Button, ModalFooter, ModalHeader} from 'reactstrap';
 import React, {useState, useEffect} from 'react';
 import Verses from './components/Verses';
 import Answers from './components/Answers';
 import axios from 'axios';
 import EasyButton from './components/EasyButton';
+import {Modal, ModalTitle} from 'react-bootstrap';
+import infoIcon from './infoIcon.svg'
+
 
 function App() {
   const long_surah_list = require('./surahs.json');
@@ -28,6 +31,7 @@ function App() {
   const [ans3, setAns3] = useState(["", 0]);
   const [lost, setLost] = useState(false);
   const [count, setCount] = useState(0);
+  const [rulesModal, setRulesModal] = useState(false)
 
   const URL = "https://8dqpicjnn1.execute-api.us-east-1.amazonaws.com";
 
@@ -135,11 +139,21 @@ function App() {
   setDisabled3(true)
 }
 
+const closeRulesModal = () => {
+  setRulesModal(false)
+}
+
+const openRulesModal = () => {
+  setRulesModal(true)
+}
+
   return (
     <div className='App'>  
         <div className="NavBar mb-2 pr-4">
           <Row className="d-flex align-items-center">
-            <Col >
+            <Col>
+              <div className="d-flex align-items-center justify-content-start" onClick={openRulesModal}><img className="mx-2" src={infoIcon} alt="icon for game rules"/></div>
+            {/* <Button onClick={openRulesModal}>Rules</Button> */}
             </Col>
             <Col >
               <div className="title">Islamle</div>
@@ -195,6 +209,21 @@ function App() {
             setShow={setShow}
             />
         </Row>
+        <Modal show={rulesModal}>
+            <ModalBody>
+              <ModalHeader className="d-flex justify-content-center border-0">
+                <ModalTitle className="rules-title">Rules</ModalTitle>
+              </ModalHeader>
+              <ul className="rules">
+                <li className="li-not-last">Toggle between all surahs and the 30th Juz with the button on the top right.</li>
+                <li className="li-not-last">Three tries to guess the surah given 3 ayat within surah.</li>
+                <li>Share you results!</li>
+              </ul>
+            </ModalBody>
+            <ModalFooter className='border-0'>
+              <Button onClick={closeRulesModal}>close</Button>
+            </ModalFooter>
+        </Modal>
     </div>
   );
 }

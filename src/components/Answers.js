@@ -126,7 +126,7 @@ const Answers = ({  surahData,
     return (
         <div className="Answers">
             <Modal show={show}>
-                <ModalHeader className="d-flex justify-content-center">
+                <ModalHeader className="d-flex justify-content-center border-0">
                     <ModalTitle>
                         {modalTitle}
                     </ModalTitle>
@@ -139,7 +139,7 @@ const Answers = ({  surahData,
                         {modalFooter}
                     </Row>
                 </ModalBody>
-                <ModalFooter>
+                <ModalFooter className="border-0">
                     {
                         lost 
                         ?    
