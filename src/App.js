@@ -176,7 +176,7 @@ function App() {
             isMobile={isMobile}
             surahs={surahs}
             disabled1={disabled1}
-            disabled12={disabled2}
+            disabled2={disabled2}
             disabled3={disabled3}
             ans1={ans1}
             ans2={ans2}
