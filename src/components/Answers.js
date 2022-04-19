@@ -4,6 +4,7 @@ import Select from 'react-select';
 import { ModalTitle } from 'react-bootstrap';
 import {Modal} from 'react-bootstrap';
 import Share from "./Share";
+import { isDisabled } from '@testing-library/user-event/dist/utils';
 const Answers = ({  surahData, 
                     newVerse, 
                     isMobile, 
@@ -34,8 +35,9 @@ const Answers = ({  surahData,
     const [shareText, setShareText] = useState("");
 
     const handleChange1 = (val) => {
-        setDisabled1(true);
+        
         setAns1([val.name, val.id]);
+        setDisabled1(true);
         if (val.id === surahData.surah_number){
             setCount(count+1);
             setModalTitle("Fantastic!");
@@ -97,29 +99,42 @@ const Answers = ({  surahData,
 
 
     const customStyles1 = {
+        control: (base, state) => ({
+            ...base,
+            background: state.isDisabled ? "#535353" : "white" ,
+            borderColor: state.isDisabled ? "#333335" : "white"
+        }),        
         singleValue: (provided, state) => {
-            const opacity = state.isDisabled ? 0.5 : 1;
             const transition = 'opacity 300ms';  
-            const color = surahData.surah_number === ans1[1] ? "green" : "red";
-            return { ...provided, color, opacity, transition };
+            const color = surahData.surah_number === ans1[1] ? "#198754" : "#bb2d3b"
+            return { ...provided, color, transition };
         }
     }
 
     const customStyles2 = {
+        control: (base, state) => ({
+            ...base,
+            background: state.isDisabled ? "#535353" : "white" ,
+            borderColor: state.isDisabled ? "#333335" : "white",
+            boxShadow: "white" 
+        }),        
         singleValue: (provided, state) => {
-            const opacity = state.isDisabled ? 0.5 : 1;
             const transition = 'opacity 300ms';  
-            const color = surahData.surah_number === ans2[1] ? "green" : "red";
-            return { ...provided, color, opacity, transition };
+            const color = surahData.surah_number === ans2[1] ? "#198754" : "#bb2d3b"
+            return { ...provided, color, transition };
         }
         }
 
     const customStyles3 = {
+        control: (base, state) => ({
+            ...base,
+            background: state.isDisabled ? "#535353" : "white",
+            borderColor: state.isDisabled ? "#333335" : "white"
+        }),
         singleValue: (provided, state) => {
-            const opacity = state.isDisabled ? 0.5 : 1;
             const transition = 'opacity 300ms';  
-            const color = surahData.surah_number === ans3[1] ? "green" : "red";
-            return { ...provided, color, opacity, transition };
+            const color = surahData.surah_number === ans3[1] ? "#198754" : "#bb2d3b"
+            return { ...provided, color, transition};
         }
         }
 
@@ -173,12 +188,15 @@ const Answers = ({  surahData,
             <Fragment>
                 <Row className='mt-3 d-flex justify-content-center'>
                     <Col sm={{size: 8}}>
+                   
                         <Select
-                            className="basic-double"
+                            className=" first-select"
+                            components={disabled1?{ DropdownIndicator:() => null, IndicatorSeparator:() => null }:{}}
                             name="Answer 1"
                             onChange={handleChange1}
                             value={ans1[0]}
                             multi={true}
+                            placeholder="Choice 1"
                             isDisabled={disabled1}
                             styles={customStyles1}
                             options={surahs.map((surah) => {
@@ -186,7 +204,7 @@ const Answers = ({  surahData,
                                 let surah_name = surah["name"] + "( " + surah['arabic_name'] + " )"
                                 return {id: surah_id, label: surah_name, value:surah_name}
                             })}>
-                        </Select>
+                        </Select> 
                     </Col>
                 </Row>
                 <Row className='mt-3 d-flex justify-content-center'>
@@ -195,8 +213,10 @@ const Answers = ({  surahData,
                             className="basic-double"
                             name="Answer 2"
                             onChange={handleChange2}
+                            components={disabled2?{ DropdownIndicator:() => null, IndicatorSeparator:() => null }:{}}
                             value={ans2[0]}
                             multi={true}
+                            placeholder="Choice 2"
                             isDisabled={disabled2}
                             styles={customStyles2}
                             options={surahs.map((surah) => {
@@ -214,8 +234,10 @@ const Answers = ({  surahData,
                             className="basic-double"
                             name="Answer 3"
                             onChange={handleChange3}
+                            components={disabled3?{ DropdownIndicator:() => null, IndicatorSeparator:() => null }:{}}
                             value={ans3[0]}
                             multi={true}
+                            placeholder="Choice 3"
                             isDisabled={disabled3}
                             options={surahs.map((surah) => {
                                 let surah_id = surah["id"]
@@ -225,6 +247,7 @@ const Answers = ({  surahData,
                         </Select>
                     </Col>
                 </Row>
+               
             </Fragment>
         </div>
     )
