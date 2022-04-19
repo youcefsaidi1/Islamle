@@ -4,7 +4,7 @@ import Select from 'react-select';
 import { ModalTitle } from 'react-bootstrap';
 import {Modal} from 'react-bootstrap';
 import Share from "./Share";
-import { isDisabled } from '@testing-library/user-event/dist/utils';
+
 const Answers = ({  surahData, 
                     newVerse, 
                     isMobile, 
