@@ -32,8 +32,6 @@ function App() {
   const [count, setCount] = useState(0);
   const [rulesModal, setRulesModal] = useState(false)
 
-  const URL = "https://8dqpicjnn1.execute-api.us-east-1.amazonaws.com";
-
   const getTestSurah = (easy) => {
     if (!easy){
       return require('./testSurahHard.json');
@@ -57,7 +55,7 @@ function App() {
   useEffect( () => {
     checkIfMobile();
     window.scrollTo(0, 0)
-    if (process.env.NODE_ENV === 'development'){
+    if (process.env.NODE_ENV === 'production'){
         axios.get(`https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist/chapters/en/${getRandomInt(78,114)}.json`).then(res => {
           const filtered_verses = getThreeRandomVerses(res.data.total_verses, res.data.verses)
           setSurahData({surah_number: res.data.id, surah_name: res.data.transliteration, verses: filtered_verses})
@@ -75,20 +73,7 @@ function App() {
           })
 
         
-        // axios.get(`${URL}/getEasyVerses`).then(res => {
-        //   setSurahData(res.data);
-        //   let verses = res.data.verses.map(v => {
-        //       return v.text;
-        //   })
-        //   const my_symbol = " ۝ ";
-        //   verses[0] += my_symbol;
-        //   verses[1] += my_symbol;
-        //   setVerse(verses);
-        //   setVersesLoaded(true);
-        // }).catch(error => {
-        //   generateSampleData(easyMode);
-        //   console.log(error);
-        // })
+
     }else {
       generateSampleData(easyMode);
     }
@@ -99,26 +84,8 @@ function App() {
   window.scrollTo(0, 0)
   const difficulty = isSwitchingDifficulty ? !easyMode : easyMode;
   setVersesLoaded(false)
-  if (process.env.NODE_ENV === 'development'){
+  if (process.env.NODE_ENV === 'production'){
     if (difficulty){
-      // axios.get(`${URL}/getEasyVerses`).then(res => {
-      //   setSurahData(res.data)
-      //   let verses = res.data.verses.map(v => {
-      //       return v.text
-      //   })
-      //   const my_symbol = " ۝ "
-      //   verses[0] += my_symbol
-      //   verses[1] += my_symbol
-      //   setVerse(verses)
-      //   setVersesLoaded(true)
-      // }).catch(error => {
-      //   generateSampleData(difficulty)
-      //   console.log(error)
-      // })
-      
-      
-
-
       axios.get(`https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist/chapters/en/${getRandomInt(78,114)}.json`).then(res => {
         const filtered_verses = getThreeRandomVerses(res.data.total_verses, res.data.verses)
         setSurahData({surah_number: res.data.id, surah_name: res.data.transliteration, verses: filtered_verses})
@@ -134,21 +101,7 @@ function App() {
           generateSampleData(easyMode);
           console.log(error);
         })
-    }else{
-        // axios.get(`${URL}/getRandomVerses`).then(res => {
-        //   setSurahData(res.data)
-        //   let verses = res.data.verses.map(v => {
-        //       return v.text
-        //   })
-        //   const my_symbol = " ۝ "
-        //   verses[0] += my_symbol
-        //   verses[1] += my_symbol
-        //   setVerse(verses)
-        //   setVersesLoaded(true)
-        // }).catch(error => {
-        //   generateSampleData(difficulty)
-        //   console.log(error)
-        // })   
+    }else{ 
         axios.get(`https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist/chapters/en/${getRandomInt(0,114)}.json`).then(res => {
           const filtered_verses = getThreeRandomVerses(res.data.total_verses, res.data.verses)
           setSurahData({surah_number: res.data.id, surah_name: res.data.transliteration, verses: filtered_verses})

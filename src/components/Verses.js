@@ -15,7 +15,6 @@ const Verses = ({data, surah_verses}) => {
             </Row>        
             <Container className="Verses">
                 <h1 className="verse">{surah_verses}</h1>
-                <h1 className="verse">وَجِا۟ىٓءَ يَوْمَئِذٍۭ بِجَهَنَّمَ ۚ يَوْمَئِذٍۢ يَتَذَكَّرُ ٱلْإِنسَـٰنُ وَأَنَّىٰ لَهُ ٱلذِّكْرَىٰ</h1>
             </Container>
             <Row>
                 <Col lg={{size:12}}>
@@ -40,3 +39,4 @@ const Verses = ({data, surah_verses}) => {
 }
 
 export default Verses
+
