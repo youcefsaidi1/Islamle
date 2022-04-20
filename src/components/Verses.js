@@ -5,8 +5,7 @@ import {Modal, ModalTitle} from 'react-bootstrap';
 
 const Verses = ({data, surah_verses}) => {
     const [showTranslation, setShowTranslation] = useState(false);
-    const translation = data.verses.map((verse)=> <li key={verse.key}>{verse.translated_text}</li>);
-    
+    const translation = data.verses.map((verse)=> <li key={verse.id}>{verse.translation}</li>);
     return (
         <>
             <Row>
@@ -29,15 +28,15 @@ const Verses = ({data, surah_verses}) => {
                     </ModalTitle>
                 </ModalHeader>
                 <ModalBody>
-                <ol start={data.verses[0].number}>
+                <ol start={data.verses[0].id}>
                     {translation}
                 </ol>
                 </ModalBody>
                 <Button onClick={()=>{setShowTranslation(false)}}>Close</Button>
             </Modal>
         </>
-    
     )
 }
 
 export default Verses
+

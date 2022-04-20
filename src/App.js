@@ -9,7 +9,6 @@ import EasyButton from './components/EasyButton';
 import {Modal, ModalTitle} from 'react-bootstrap';
 import infoIcon from './infoIcon.svg'
 
-
 function App() {
   const long_surah_list = require('./surahs.json');
   const short_surah_list = long_surah_list.slice(77,114);
@@ -33,8 +32,6 @@ function App() {
   const [count, setCount] = useState(0);
   const [rulesModal, setRulesModal] = useState(false)
 
-  const URL = "https://8dqpicjnn1.execute-api.us-east-1.amazonaws.com";
-
   const getTestSurah = (easy) => {
     if (!easy){
       return require('./testSurahHard.json');
@@ -42,24 +39,41 @@ function App() {
     return require('./testSurahEasy.json');
   }
   
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+  }
+
+  const getThreeRandomVerses = (num_verses, verse_list) => {
+    const max_allowed = num_verses - 3;
+    const random_starting_verse = Math.floor(Math.random() * max_allowed)
+    return [verse_list[random_starting_verse], verse_list[random_starting_verse + 1], verse_list[random_starting_verse + 2]]
+
+  }
+
   useEffect( () => {
     checkIfMobile();
     window.scrollTo(0, 0)
     if (process.env.NODE_ENV === 'production'){
-        axios.get(`${URL}/getEasyVerses`).then(res => {
-          setSurahData(res.data);
-          let verses = res.data.verses.map(v => {
-              return v.text;
+        axios.get(`https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist/chapters/en/${getRandomInt(78,114)}.json`).then(res => {
+          const filtered_verses = getThreeRandomVerses(res.data.total_verses, res.data.verses)
+          setSurahData({surah_number: res.data.id, surah_name: res.data.transliteration, verses: filtered_verses})
+          let verses = filtered_verses.map(v => {
+            return v.text
           })
           const my_symbol = " ۝ ";
           verses[0] += my_symbol;
           verses[1] += my_symbol;
           setVerse(verses);
-          setVersesLoaded(true);
+          setVersesLoaded(true);          
         }).catch(error => {
-          generateSampleData(easyMode);
-          console.log(error);
-        })
+            generateSampleData(easyMode);
+            console.log(error);
+          })
+
+        
+
     }else {
       generateSampleData(easyMode);
     }
@@ -72,35 +86,37 @@ function App() {
   setVersesLoaded(false)
   if (process.env.NODE_ENV === 'production'){
     if (difficulty){
-      axios.get(`${URL}/getEasyVerses`).then(res => {
-        setSurahData(res.data)
-        let verses = res.data.verses.map(v => {
-            return v.text
+      axios.get(`https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist/chapters/en/${getRandomInt(78,114)}.json`).then(res => {
+        const filtered_verses = getThreeRandomVerses(res.data.total_verses, res.data.verses)
+        setSurahData({surah_number: res.data.id, surah_name: res.data.transliteration, verses: filtered_verses})
+        let verses = filtered_verses.map(v => {
+          return v.text
         })
-        const my_symbol = " ۝ "
-        verses[0] += my_symbol
-        verses[1] += my_symbol
-        setVerse(verses)
-        setVersesLoaded(true)
+        const my_symbol = " ۝ ";
+        verses[0] += my_symbol;
+        verses[1] += my_symbol;
+        setVerse(verses);
+        setVersesLoaded(true);          
       }).catch(error => {
-        generateSampleData(difficulty)
-        console.log(error)
-      })    
-    }else{
-        axios.get(`${URL}/getRandomVerses`).then(res => {
-          setSurahData(res.data)
-          let verses = res.data.verses.map(v => {
-              return v.text
+          generateSampleData(easyMode);
+          console.log(error);
+        })
+    }else{ 
+        axios.get(`https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist/chapters/en/${getRandomInt(0,114)}.json`).then(res => {
+          const filtered_verses = getThreeRandomVerses(res.data.total_verses, res.data.verses)
+          setSurahData({surah_number: res.data.id, surah_name: res.data.transliteration, verses: filtered_verses})
+          let verses = filtered_verses.map(v => {
+            return v.text
           })
-          const my_symbol = " ۝ "
-          verses[0] += my_symbol
-          verses[1] += my_symbol
-          setVerse(verses)
-          setVersesLoaded(true)
+          const my_symbol = " ۝ ";
+          verses[0] += my_symbol;
+          verses[1] += my_symbol;
+          setVerse(verses);
+          setVersesLoaded(true);          
         }).catch(error => {
-          generateSampleData(difficulty)
-          console.log(error)
-        })      
+            generateSampleData(easyMode);
+            console.log(error);
+          })   
     }
   }else{
     generateSampleData(difficulty)

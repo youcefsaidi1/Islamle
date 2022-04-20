@@ -9,7 +9,8 @@ body {
   padding-right: 1.5rem;
 }
 .Verses h1 {
-  line-height: 1.5;
+  line-height: 1.75;
+  letter-spacing: 1px;
 }
 
 .Answers {
