@@ -1,16 +1,20 @@
+@font-face {
+  font-family: hafz;
+  src: url('quran/hafz.otf');
+}
 body {
   background-color: #333335;
   color: white;
 }
 
 .Verses {
-  font-family: 'Exo 2', sans-serif;
+  font-family: hafz;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
 .Verses h1 {
   line-height: 1.75;
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
 }
 
 .Answers {
@@ -22,8 +26,8 @@ body {
 }
 
 .bismillah {
-  font-family: 'Lateef', cursive;
-  font-size: 1.5rem;
+  font-family: hafz, cursive;
+  font-size: 1.2rem;
 }
 
 .EasyButton {
