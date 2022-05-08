@@ -17,7 +17,7 @@ function EasyButton({easyMode, setEasyMode, easyButtonNewVerses, setSurahs, long
             setSurahs(longSurahList);
             setLabel("All Surahs");
         }else{
-            setSurahs(shortSurahList)
+            setSurahs(shortSurahList);
             setLabel("Juz 30");
         }
         easyButtonNewVerses(isSwitchingDifficulty);

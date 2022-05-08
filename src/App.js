@@ -52,10 +52,21 @@ function App() {
 
   }
 
+  const shortened_surah_list = (surah_number) => {
+      if (surah_number >= 78) {
+        setSurahs(short_surah_list)
+      }else{
+        const surah_list_positioning = getRandomInt(0,15)
+        const start = surah_number - (15 - surah_list_positioning)
+        const end = surah_number + surah_list_positioning
+        setSurahs(long_surah_list.slice(start-1, end))
+      }
+  }
+
   useEffect( () => {
     checkIfMobile();
     window.scrollTo(0, 0)
-    if (process.env.NODE_ENV === 'production'){
+    if (process.env.NODE_ENV === 'development'){
         axios.get(`https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist/chapters/en/${getRandomInt(78,114)}.json`).then(res => {
           const filtered_verses = getThreeRandomVerses(res.data.total_verses, res.data.verses)
           setSurahData({surah_number: res.data.id, surah_name: res.data.transliteration, verses: filtered_verses})
@@ -66,14 +77,11 @@ function App() {
           verses[0] += my_symbol;
           verses[1] += my_symbol;
           setVerse(verses);
-          setVersesLoaded(true);          
+          setVersesLoaded(true);           
         }).catch(error => {
             generateSampleData(easyMode);
             console.log(error);
           })
-
-        
-
     }else {
       generateSampleData(easyMode);
     }
@@ -84,7 +92,7 @@ function App() {
   window.scrollTo(0, 0)
   const difficulty = isSwitchingDifficulty ? !easyMode : easyMode;
   setVersesLoaded(false)
-  if (process.env.NODE_ENV === 'production'){
+  if (process.env.NODE_ENV === 'development'){
     if (difficulty){
       axios.get(`https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist/chapters/en/${getRandomInt(78,114)}.json`).then(res => {
         const filtered_verses = getThreeRandomVerses(res.data.total_verses, res.data.verses)
@@ -112,9 +120,10 @@ function App() {
           verses[0] += my_symbol;
           verses[1] += my_symbol;
           setVerse(verses);
-          setVersesLoaded(true);          
+          setVersesLoaded(true);
+          shortened_surah_list(res.data.id)          
         }).catch(error => {
-            generateSampleData(easyMode);
+            generateSampleData(easyMode); 
             console.log(error);
           })   
     }
