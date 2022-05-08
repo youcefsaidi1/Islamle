@@ -66,7 +66,7 @@ function App() {
   useEffect( () => {
     checkIfMobile();
     window.scrollTo(0, 0)
-    if (process.env.NODE_ENV === 'development'){
+    if (process.env.NODE_ENV === 'production'){
         axios.get(`https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist/chapters/en/${getRandomInt(78,114)}.json`).then(res => {
           const filtered_verses = getThreeRandomVerses(res.data.total_verses, res.data.verses)
           setSurahData({surah_number: res.data.id, surah_name: res.data.transliteration, verses: filtered_verses})
@@ -92,7 +92,7 @@ function App() {
   window.scrollTo(0, 0)
   const difficulty = isSwitchingDifficulty ? !easyMode : easyMode;
   setVersesLoaded(false)
-  if (process.env.NODE_ENV === 'development'){
+  if (process.env.NODE_ENV === 'production'){
     if (difficulty){
       axios.get(`https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist/chapters/en/${getRandomInt(78,114)}.json`).then(res => {
         const filtered_verses = getThreeRandomVerses(res.data.total_verses, res.data.verses)
